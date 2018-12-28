@@ -51,6 +51,14 @@ for row in worklist:
 		complete.append(line)
 	except:
 		print("Url error for " + row['Destination'])
+		line = dict(
+			Source = row['Source'],
+			Destination = row['Destination'],
+			Status = 'ERROR',
+			History = '',
+			EndUrl = ''
+		)
+		complete.append(line)
 print(complete)
 # See if we want to save the file
 dosave = input("Do you want to save a CSV — Type 'Y' for yes or anything else for no. ")

@@ -39,15 +39,18 @@ complete = []
 for row in worklist:
 	print("Working on " + row['Destination'])
 	line = {}
-	page = requests.head(row['Destination'],allow_redirects=True)
-	line = dict(
-		Source = row['Source'],
-		Destination = row['Destination'],
-		Status = page.status_code,
-		History = page.history,
-		EndUrl = page.url
-	)
-	complete.append(line)
+	try:
+		page = requests.head(row['Destination'],allow_redirects=True,timeout=5)
+		line = dict(
+			Source = row['Source'],
+			Destination = row['Destination'],
+			Status = page.status_code,
+			History = page.history,
+			EndUrl = page.url
+		)
+		complete.append(line)
+	except:
+		print("Url error for " + row['Destination'])
 print(complete)
 # See if we want to save the file
 dosave = input("Do you want to save a CSV — Type 'Y' for yes or anything else for no. ")

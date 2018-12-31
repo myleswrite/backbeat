@@ -10,12 +10,12 @@ except:
 try:  # For getting the URL response
 	import requests
 except:
-	print("requests is required")
+	print("Requests module is required")
 	exit()
 try:  # For waiting
 	import time
 except:
-	print("time is required")
+	print("Time module is required")
 	exit()
 try: # For file dialog
 	from tkinter import filedialog

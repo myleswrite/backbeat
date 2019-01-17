@@ -23,8 +23,9 @@ try: # For file dialog
 except:
 	print("tkinter.filedialog is required")
 	exit()
-# Create a blank dictionary
+# Create a blank list
 complete = []
+urllist = []
 # Open the CSV
 filecsv = Tk()
 filecsv.filename = filedialog.askopenfilename(initialdir = "~/",title = "Select csv file to open",filetypes = (("CSV files","*.csv"),("all files","*.*")))
@@ -33,28 +34,42 @@ print ("Opening file " + filecsv.filename)
 with open(filecsv.filename, 'r') as f: # Open the file
 	worklist = csv.DictReader(f)
 	for row in worklist:
-		print("Working on " + row['Destination'])
-		line = {}
-		try:
-			page = requests.head(row['Destination'],allow_redirects=True,timeout=5)
+		geturl = row['Destination']
+		print("Working on " + geturl)
+		if(geturl in urllist):
+			print(geturl + " is a duplicate")
+			line = {}
 			line = dict(
 				Source = row['Source'],
-				Destination = row['Destination'],
-				Status = page.status_code,
-				History = page.history,
-				EndUrl = page.url
-			)
-			complete.append(line)
-		except:
-			print("Url error for " + row['Destination'])
-			line = dict(
-				Source = row['Source'],
-				Destination = row['Destination'],
-				Status = 'ERROR',
+				Destination = geturl,
+				Status = 'Duplicate url',
 				History = '',
 				EndUrl = ''
-			)
+				)
 			complete.append(line)
+		else:
+			urllist.append(geturl)
+			line = {}
+			try:
+				page = requests.head(geturl,allow_redirects=True,timeout=5)
+				line = dict(
+					Source = row['Source'],
+					Destination = geturl,
+					Status = page.status_code,
+					History = page.history,
+					EndUrl = page.url
+				)
+				complete.append(line)
+			except:
+				print("Url error for " + geturl)
+				line = dict(
+					Source = row['Source'],
+					Destination = geturl,
+					Status = 'ERROR',
+					History = '',
+					EndUrl = ''
+				)
+				complete.append(line)
 print(complete)
 # See if we want to save the file
 dosave = input("Do you want to save a CSV — Type 'Y' for yes or anything else for no. ")

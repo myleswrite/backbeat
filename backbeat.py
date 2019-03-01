@@ -60,6 +60,7 @@ with open(filecsv.filename, 'r') as f: # Open the file
 					EndUrl = page.url
 				)
 				complete.append(line)
+				del page
 			except:
 				print("Url error for " + geturl)
 				line = dict(

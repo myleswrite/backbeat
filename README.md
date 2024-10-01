@@ -15,3 +15,5 @@ If you want to know why column one is blank… It's because the csv module erro
 ## Why would I use backbeat?
 
 One of the SEO checks I do in my day job is to work through a list of sites linking to particular domain and check which of them end up in 404s. This is useful for a) Doing 301 redirects to a working page or b) Contacting the source domain and ask them to switch to a working URL. Backbeat automates working through the list and as a bonus makes it trivial to work through a list of A N Other's backlinks (for spotting opportunities to contact the source domain and ask them to switch from a 404 link on A N Other's site to a working link on mine.).
+
+If you feel like buying me a beer for writing the script tip me here: <a href="https://www.paypal.me/mylesw42">https://www.paypal.me/mylesw42</a>
